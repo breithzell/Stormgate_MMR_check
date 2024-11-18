@@ -86,3 +86,30 @@ plt.legend(period_txt[:])
 plt.grid(True, alpha=0.3, linestyle="--")
 plt.savefig('Probability_density_function.png')
 plt.close()
+
+# Binned histogram
+periods = [['2024-08-01', '2024-09-30'], ['2024-10-01', '2024-11-13'], ['2024-11-14', '2024-11-20']]
+period_txt = ['All', '2024-08-01 > 2024-09-30', '2024-10-01 > 2024-11-13', '2024-11-14 > 2024-11-20']
+for bin_size,bin_mmr in zip([25, 10, 5], [100, 250, 500]):
+    g, ax = plt.subplots()
+    for period in periods:
+        df.where((df['date'] >= period[0]) & (df['date'] < period[1])).hist('own_rank', bins=bin_size, ax=ax)
+    plt.xlabel("Count (in games)")
+    plt.ylabel("Own MMR range")
+    plt.legend(period_txt[:])
+    plt.grid(True, alpha=0.3, linestyle="--")
+    plt.savefig(f'Available_players_by_{bin_mmr}.png')
+    plt.close()
+
+periods = [['2024-08-01', '2024-09-30'], ['2024-10-01', '2024-11-13'], ['2024-11-14', '2024-11-20']]
+period_txt = ['All', '2024-08-01 > 2024-09-30', '2024-10-01 > 2024-11-13', '2024-11-14 > 2024-11-20']
+for bin_size,bin_mmr in zip([25, 10, 5], [100, 250, 500]):
+    g, ax = plt.subplots()
+    for period in periods:
+        df.where((df['date'] >= period[0]) & (df['date'] < period[1])).hist('adv_rank', bins=bin_size, ax=ax)
+    plt.xlabel("Count (in games)")
+    plt.ylabel("Opponent MMR range")
+    plt.legend(period_txt[:])
+    plt.grid(True, alpha=0.3, linestyle="--")
+    plt.savefig(f'Available_players_by_opponent_{bin_mmr}.png')
+    plt.close()
