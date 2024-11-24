@@ -60,7 +60,7 @@ df['Rank_Difference'] = numpy.abs(df['own_rank'] - df['adv_rank'])
 
 dd = df.set_index('date').sort_index()
 dd['Rank_Difference'].plot(marker='o', ylabel='MMR difference', linestyle='', markersize=0.5)
-plt.title(f'Sampling: {len(dd)} make from the history of {500-forbidden} players')
+plt.title(f'Sampling: {len(dd)} make from the history of XX players')
 plt.savefig('Rank_Difference.png')
 dd['Rank_Difference'].resample('1d').median('date').plot(marker='o', ylabel='Daily median MMR difference', linestyle='-', markersize=1)
 plt.savefig('Rank_Difference_median_per_day.png')
@@ -72,8 +72,8 @@ df_std = numpy.std(df['Rank_Difference'])
 pdf = stats.norm.pdf(df["Rank_Difference"].sort_values(), df_mean, df_std)
 plt.plot(df["Rank_Difference"].sort_values(), pdf*100)
 
-periods = [['2024-08-01', '2024-09-30'], ['2024-10-01', '2024-11-13'], ['2024-11-14', '2024-11-20']]
-period_txt = ['All', '2024-08-01 > 2024-09-30', '2024-10-01 > 2024-11-13', '2024-11-14 > 2024-11-20']
+periods = [['2024-08-01', '2024-09-30'], ['2024-10-01', '2024-11-13'], ['2024-11-14', '2024-11-30']]
+period_txt = ['All', '2024-08-01 > 2024-09-30', '2024-10-01 > 2024-11-13', '2024-11-14 > 2024-11-30']
 for period in periods:
     df_mean = numpy.mean(df['Rank_Difference'].where((df['date'] >= period[0]) & (df['date'] < period[1])) )
     df_std = numpy.std(df['Rank_Difference'].where((df['date'] >= period[0]) & (df['date'] < period[1])) )
@@ -88,8 +88,8 @@ plt.savefig('Probability_density_function.png')
 plt.close()
 
 # Binned histogram
-periods = [['2024-08-01', '2024-09-30'], ['2024-10-01', '2024-11-13'], ['2024-11-14', '2024-11-20']]
-period_txt = ['All', '2024-08-01 > 2024-09-30', '2024-10-01 > 2024-11-13', '2024-11-14 > 2024-11-20']
+periods = [['2024-08-01', '2024-09-30'], ['2024-10-01', '2024-11-13'], ['2024-11-14', '2024-11-30']]
+period_txt = ['All', '2024-08-01 > 2024-09-30', '2024-10-01 > 2024-11-13', '2024-11-14 > 2024-11-30']
 for bin_size,bin_mmr in zip([25, 10, 5], [100, 250, 500]):
     g, ax = plt.subplots()
     for period in periods:
@@ -101,8 +101,8 @@ for bin_size,bin_mmr in zip([25, 10, 5], [100, 250, 500]):
     plt.savefig(f'Available_players_by_{bin_mmr}.png')
     plt.close()
 
-periods = [['2024-08-01', '2024-09-30'], ['2024-10-01', '2024-11-13'], ['2024-11-14', '2024-11-20']]
-period_txt = ['All', '2024-08-01 > 2024-09-30', '2024-10-01 > 2024-11-13', '2024-11-14 > 2024-11-20']
+periods = [['2024-08-01', '2024-09-30'], ['2024-10-01', '2024-11-13'], ['2024-11-14', '2024-11-30']]
+period_txt = ['All', '2024-08-01 > 2024-09-30', '2024-10-01 > 2024-11-13', '2024-11-14 > 2024-11-30']
 for bin_size,bin_mmr in zip([25, 10, 5], [100, 250, 500]):
     g, ax = plt.subplots()
     for period in periods:
